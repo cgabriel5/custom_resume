@@ -4,8 +4,11 @@
 /* [ELEMENT STYLES : START] */
 
 html {
-    /* https://css-tricks.com/box-sizing/ */
+    /* [https://css-tricks.com/box-sizing/] */
     box-sizing: border-box;
+    /* [http://stackoverflow.com/questions/2710764/preserve-html-font-size-when-iphone-orientation-changes-from-portrait-to-landsca] */
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
 }
 
 *,
