@@ -29,7 +29,7 @@ document.onreadystatechange = function() {
         // if the device is an ip***.
 
         // add the needed CSS class
-        if (is_ios()) portfolio_wrapper.classList.add("ios-click-fix");
+        if (is_ios()) document.body.classList.add("ios-click-fix");
     }
 
     // all resources have loaded
