@@ -111,7 +111,6 @@
                 name: "Carlos A. Gabriel",
                 role: "Front-End Web Developer",
                 contacts: {
-                    email: ["carlosgabriel71@yahoo.com", null],
                     github: ["cgabriel5", "https://github.com/cgabriel5/"],
                     linkedin: [
                         "cgabriel5",
@@ -234,7 +233,7 @@
             html_contact_popup_wrapper: '<div class="none popup" id="wrapper-popup-contact"><ul class="ul-fix"></ul></div>',
             html_contact_button: '<button class="btn-default noselect" id="btn-contact">get in touch</button>',
             html_contact_item_generic: '<li class="popup-item"><span class="popup-label">%contact%</span> <span>%data%</span></li>',
-            html_contact_item_url: '<li class="popup-item"><span class="popup-label">%contact%</span> <a href="#" class="text-blue text-link">%data%</a></li>',
+            html_contact_item_url: '<li class="popup-item"><span class="popup-label">%contact%</span> <a href="#" class="text-blue text-link contact-lmargin-fix">%data%</a></li>',
             // bio HTML
             html_bio_wrappers: '<div class="cont-biopic none" id="wrapper-biopic"></div><div id="wrapper-name"></div><div class="cont-role" id="wrapper-role"></div><div class="cont-welcome" id="wrapper-welcome-message"></div>',
             html_biopic: '<picture><img src="%data%" alt="resume image" class="img-biopic" id="biopic"></picture>',

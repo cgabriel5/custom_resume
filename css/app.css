@@ -635,6 +635,10 @@ body {
     line-height: 1.2em;
 }
 
+.contact-lmargin-fix {
+    margin-left: 5px;
+}
+
 .text-link {
     cursor: pointer;
     text-decoration: none;
@@ -715,7 +719,7 @@ body {
 }
 
 .popup-item:hover {
-    box-shadow: inset 5px 0 0 0 #4080ff;
+    box-shadow: inset 2px 0 0 0 #4080ff;
 }
 
 .popup-label {
