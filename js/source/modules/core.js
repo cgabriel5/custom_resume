@@ -43,8 +43,12 @@ app.module("core", function(modules, name) {
                     // look only for properties on object itself
                     if (contacts.hasOwnProperty(key)) {
                         contacts_html_string += format(
-                            templates.html_contact_item_generic,
-                            contacts[key]
+                            templates[
+                                "html_contact_item_" +
+                                    (!contacts[key][1] ? "generic" : "url")
+                            ],
+                            contacts[key][0],
+                            contacts[key][1]
                         ).replace("%contact%", key);
                     }
                 }
@@ -167,8 +171,6 @@ app.module("core", function(modules, name) {
          * @return {Undefined} [Nothing is returned.]
          */
         education: function() {
-            //--------------------------------------------------TRADITIONAL-SCHOOL
-
             // cache the education section
             var education_section = $$.education_section;
 
@@ -177,6 +179,43 @@ app.module("core", function(modules, name) {
                 "afterbegin",
                 templates.html_education_start
             );
+
+            //--------------------------------------------------ONLINE-SCHOOL
+
+            // loop through online school objects and add them to the page
+            this.onlineCourses.forEach(function(online_course) {
+                // add the entry to the page
+                education_section.insertAdjacentHTML(
+                    "beforeend",
+                    templates.html_entry
+                );
+                // get the last inserted entry
+                var entries = education_section.getElementsByClassName("entry");
+                var last_entry = entries[entries.length - 1];
+                // left side
+                last_entry.children[0].insertAdjacentHTML(
+                    "afterbegin",
+                    format(
+                        templates.html_education_school_name_online,
+                        online_course.school
+                    ) +
+                        format(
+                            templates.html_education_generic,
+                            online_course.date
+                        )
+                );
+                // right side
+                last_entry.children[1].insertAdjacentHTML(
+                    "afterbegin",
+                    format(
+                        templates.html_education_generic_bold,
+                        online_course.title,
+                        online_course.url
+                    )
+                );
+            });
+
+            //--------------------------------------------------TRADITIONAL-SCHOOL
 
             // loop through school objects and add them to the page
             this.schools.forEach(function(school) {
@@ -218,41 +257,6 @@ app.module("core", function(modules, name) {
                         majors_html_string
                 );
             });
-
-            //--------------------------------------------------ONLINE-SCHOOL
-
-            // loop through online school objects and add them to the page
-            this.onlineCourses.forEach(function(online_course) {
-                // add the entry to the page
-                education_section.insertAdjacentHTML(
-                    "beforeend",
-                    templates.html_entry
-                );
-                // get the last inserted entry
-                var entries = education_section.getElementsByClassName("entry");
-                var last_entry = entries[entries.length - 1];
-                // left side
-                last_entry.children[0].insertAdjacentHTML(
-                    "afterbegin",
-                    format(
-                        templates.html_education_school_name_online,
-                        online_course.school
-                    ) +
-                        format(
-                            templates.html_education_generic,
-                            online_course.date
-                        )
-                );
-                // right side
-                last_entry.children[1].insertAdjacentHTML(
-                    "afterbegin",
-                    format(
-                        templates.html_education_generic_bold,
-                        online_course.title,
-                        online_course.url
-                    )
-                );
-            });
         },
         /**
          * @description [Adds the work HTML to the page.]
@@ -263,6 +267,9 @@ app.module("core", function(modules, name) {
 
             // cache the work experience section
             var workexp_section = $$.workexp_section;
+
+            // if no jobs return and hide the section
+            if (!this.jobs.length) workexp_section.classList.add("none");
 
             // add the label to the page
             workexp_section.insertAdjacentHTML(

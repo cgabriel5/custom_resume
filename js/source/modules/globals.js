@@ -5,22 +5,23 @@ app.module("globals", function(modules, name) {
      */
     var data = {
         bio: {
-            name: "John Doe",
-            role: "a web developer",
+            name: "Carlos A. Gabriel",
+            role: "Front-End Web Developer",
             contacts: {
-                mobile: "650-555-5555",
-                email: "johndoe@example.com",
-                github: "johndoe",
-                twitter: "@johndoe",
-                location: "San Francisco, CA"
+                email: ["carlosgabriel71@yahoo.com", null],
+                github: ["cgabriel5", "https://github.com/cgabriel5/"],
+                linkedin: [
+                    "cgabriel5",
+                    "https://www.linkedin.com/in/cgabriel5/"
+                ],
+                location: ["Modesto, CA", null]
             },
-            welcomeMessage: "Lorem ipsum dolor sit amet, consectetur adipiscing elit," +
-                " sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            welcomeMessage: "Hello there! My name is Carlos and I am a web enthusiast. Although graduating from college with a biology degree, I had a change of heart and decided to become a web developer. Yes, I love the web that much! Having an eye for detail, I naturally found Front-End web development quite fitting. What can I say, I like it when a website looks good.",
             skills: {
                 frontend: ["HTML", "CSS", "JavaScript, jQuery"],
-                backend: ["PHP", "Python", "MySQL", "NodeJS (Socket.IO)"]
+                backend: ["PHP", "MySQL", "NodeJS (Socket.IO)"]
             },
-            biopic: "images/fry.jpg"
+            biopic: "img/default.png" // [https://www.iconfinder.com/icons/1564522/camera_capture_photo_icon#size=128]
         },
         education: {
             schools: [
@@ -35,6 +36,12 @@ app.module("globals", function(modules, name) {
             ],
             onlineCourses: [
                 {
+                    title: "Front-End Web Developer Nanodegree",
+                    school: "Udacity",
+                    date: "2017",
+                    url: "https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001"
+                },
+                {
                     title: "Intro to Programming Nanodegree",
                     school: "Udacity",
                     date: "2016",
@@ -44,22 +51,22 @@ app.module("globals", function(modules, name) {
         },
         work: {
             jobs: [
-                {
-                    employer: "Google",
-                    title: "Web Developer",
-                    location: "Mountain View",
-                    dates: "Jan 2010 - Future",
-                    description: "Pellentesque euismod nisi ut lectus hendrerit," +
-                        " interdum efficitur libero molestie."
-                },
-                {
-                    employer: "Apple",
-                    title: "Web Developer",
-                    location: "Cupertino, CA",
-                    dates: "2006 - Dec 31, 2009",
-                    description: "Sed efficitur tempus bibendum. Vivamus eget ante " +
-                        "rutrum, euismod mi accumsan, efficitur ex."
-                }
+                // {
+                //     employer: "Google",
+                //     title: "Web Developer",
+                //     location: "Mountain View",
+                //     dates: "Jan 2010 - Future",
+                //     description: "Pellentesque euismod nisi ut lectus hendrerit," +
+                //         " interdum efficitur libero molestie."
+                // },
+                // {
+                //     employer: "Apple",
+                //     title: "Web Developer",
+                //     location: "Cupertino, CA",
+                //     dates: "2006 - Dec 31, 2009",
+                //     description: "Sed efficitur tempus bibendum. Vivamus eget ante " +
+                //         "rutrum, euismod mi accumsan, efficitur ex."
+                // }
             ]
         },
         projects: {
@@ -68,16 +75,52 @@ app.module("globals", function(modules, name) {
             // clear and separate.
             projects: [
                 {
-                    title: "Socket.IO",
-                    dates: "2011-Present",
-                    description: "Realtime application framework (Node.JS server)",
-                    url: "https://github.com/socketio/socket.io"
+                    title: "InteractionJS (events)",
+                    dates: "2017-Present",
+                    description: "Small library for event handling.",
+                    url: "https://github.com/cgabriel5/interactionjs"
                 },
                 {
-                    title: "jQuery",
-                    dates: "2007-Present",
-                    description: "jQuery JavaScript Library",
-                    url: "https://github.com/jquery/jquery"
+                    title: "XHR-Wrapper (httpjs)",
+                    dates: "2017-Present",
+                    description: "A lightweight JavaScript XHR wrapper.",
+                    url: "https://github.com/cgabriel5/httpjs"
+                },
+                {
+                    title: "MonitorJS",
+                    dates: "2017-Present",
+                    description: "Small library that monitors an object.",
+                    url: "https://github.com/cgabriel5/monitorjs"
+                },
+                {
+                    title: "CSS-Syntax-Highlighter",
+                    dates: "2016-Present",
+                    description: "A CSS syntax highlighter.",
+                    url: "https://github.com/cgabriel5/css-syntax-highlighter"
+                },
+                {
+                    title: "CSS-Dupe-Finder",
+                    dates: "2016-Present",
+                    description: "Finds duplicate declarations within CSS code blocks.",
+                    url: "https://github.com/cgabriel5/css-dupe-finder"
+                },
+                {
+                    title: "Password-Generator",
+                    dates: "2015-Present",
+                    description: "A simple client-side password generator made in JavaScript.",
+                    url: "https://github.com/cgabriel5/password-generator"
+                },
+                {
+                    title: "FunnelJS",
+                    dates: "2015-Present",
+                    description: "Simple, standalone, lightweight JavaScript selector engine.",
+                    url: "https://github.com/cgabriel5/funneljs"
+                },
+                {
+                    title: "URL-Parser",
+                    dates: "2015-Present",
+                    description: "A JavaScript URL parser. Parses properly formatted URLs.",
+                    url: "https://github.com/cgabriel5/url-parser"
                 }
             ]
         }
@@ -92,11 +135,12 @@ app.module("globals", function(modules, name) {
         html_contact_popup_wrapper: '<div class="none popup" id="wrapper-popup-contact"><ul class="ul-fix"></ul></div>',
         html_contact_button: '<button class="btn-default noselect" id="btn-contact">get in touch</button>',
         html_contact_item_generic: '<li class="popup-item"><span class="popup-label">%contact%</span> <span>%data%</span></li>',
+        html_contact_item_url: '<li class="popup-item"><span class="popup-label">%contact%</span> <a href="#" class="text-blue text-link">%data%</a></li>',
         // bio HTML
         html_bio_wrappers: '<div class="cont-biopic none" id="wrapper-biopic"></div><div id="wrapper-name"></div><div class="cont-role" id="wrapper-role"></div><div class="cont-welcome" id="wrapper-welcome-message"></div>',
         html_biopic: '<picture><img src="%data%" alt="resume image" class="img-biopic" id="biopic"></picture>',
         html_name: '<span class="text-name" id="name">%data%</span>',
-        html_role: '<span class="text-gray text-100 text-size-16" id="role">%data%</span>',
+        html_role: '<span class="text-gray text-size-16" id="role">%data%</span>',
         html_message: "<span>%data%</span>",
         // item entry HTML
         html_entry: '<div class="entry"><div class="entry-left"></div><div class="entry-right"></div></div>',

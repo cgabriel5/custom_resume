@@ -646,7 +646,7 @@ body {
     color: #0088CC;
 }
 
-.text-link:after {
+.text-link:hover:after {
 
     /* [http://kaliko.com/blog/css-add-link-arrow-using-after-without/] [http://htmlarrows.com/] */
     position: absolute;    /* Prevent underline of arrow */
@@ -673,10 +673,6 @@ body {
 
 .text-silver {
     color: #656d78;
-}
-
-.text-100 {
-    font-weight: 100;
 }
 
 .text-600 {
@@ -797,9 +793,8 @@ body {
 
 .img-biopic {
     display: block;
-    width: 125px;
-    height: 125px;
-    border-radius: 100px;
+    width: 64px;
+    height: 64px;
 }
 
 /* [CONTAINER STYLES : END] */
