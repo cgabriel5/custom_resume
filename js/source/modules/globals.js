@@ -133,7 +133,7 @@ app.module("globals", function(modules, name) {
         // contacts HTML
         html_contact_popup_wrapper: '<div class="none popup" id="wrapper-popup-contact"><div class="popup-close noselect"><i class="fa fa-times-circle popup-close-icon" aria-hidden="true"></i></div><ul class="ul-fix"></ul></div>',
         html_contact_button: '<button class="btn-default noselect" id="btn-contact">get in touch</button>',
-        html_contact_item_generic: '<li class="popup-item"><span class="popup-label">%contact%</span> <span>%data%</span></li>',
+        html_contact_item_generic: '<li class="popup-item"><span class="popup-label">%contact%</span> <span class="contact-lmargin-fix">%data%</span></li>',
         html_contact_item_url: '<li class="popup-item"><span class="popup-label">%contact%</span> <a href="#" class="text-blue text-link contact-lmargin-fix">%data%</a></li>',
         // bio HTML
         html_bio_wrappers: '<div class="cont-biopic none" id="wrapper-biopic"></div><div id="wrapper-name"></div><div class="cont-role" id="wrapper-role"></div><div class="cont-welcome" id="wrapper-welcome-message"></div>',

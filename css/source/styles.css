@@ -170,15 +170,15 @@ body {
     border-radius: 100px;
     display: inline-flex;
     padding: 5px;
-    color: #929394;
+    color: #333333;
 }
 
 .popup-close:hover {
-    color: #222222;
+    color: #555555;
 }
 
 .popup-close:active {
-    color: #000000;
+    color: #777777;
 }
 
 .btn-default {
