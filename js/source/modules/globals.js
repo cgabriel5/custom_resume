@@ -131,7 +131,7 @@ app.module("globals", function(modules, name) {
      */
     var templates = {
         // contacts HTML
-        html_contact_popup_wrapper: '<div class="none popup" id="wrapper-popup-contact"><ul class="ul-fix"></ul></div>',
+        html_contact_popup_wrapper: '<div class="none popup" id="wrapper-popup-contact"><div class="popup-close noselect"><i class="fa fa-times-circle popup-close-icon" aria-hidden="true"></i></div><ul class="ul-fix"></ul></div>',
         html_contact_button: '<button class="btn-default noselect" id="btn-contact">get in touch</button>',
         html_contact_item_generic: '<li class="popup-item"><span class="popup-label">%contact%</span> <span>%data%</span></li>',
         html_contact_item_url: '<li class="popup-item"><span class="popup-label">%contact%</span> <a href="#" class="text-blue text-link contact-lmargin-fix">%data%</a></li>',

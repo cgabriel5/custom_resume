@@ -230,7 +230,7 @@
          */
         var templates = {
             // contacts HTML
-            html_contact_popup_wrapper: '<div class="none popup" id="wrapper-popup-contact"><ul class="ul-fix"></ul></div>',
+            html_contact_popup_wrapper: '<div class="none popup" id="wrapper-popup-contact"><div class="popup-close noselect"><i class="fa fa-times-circle popup-close-icon" aria-hidden="true"></i></div><ul class="ul-fix"></ul></div>',
             html_contact_button: '<button class="btn-default noselect" id="btn-contact">get in touch</button>',
             html_contact_item_generic: '<li class="popup-item"><span class="popup-label">%contact%</span> <span>%data%</span></li>',
             html_contact_item_url: '<li class="popup-item"><span class="popup-label">%contact%</span> <a href="#" class="text-blue text-link contact-lmargin-fix">%data%</a></li>',
@@ -415,7 +415,7 @@
                             ).replace("%contact%", key);
                         }
                     }
-                    contact_popup.children[0].insertAdjacentHTML(
+                    contact_popup.children[1].insertAdjacentHTML(
                         "afterbegin",
                         contacts_html_string
                     );
@@ -428,7 +428,12 @@
                     // cache the target + "hover" check
                     var target = e.target,
                         check = [contact_btn, contact_popup].indexOf(target) !== -1 ||
-                        contact_popup.contains(target);
+                        (contact_popup.contains(target) &&
+                            // exclude the popup-close (container) & child (the icon)
+                            (!target.classList.contains("popup-close") &&
+                                !target.classList.contains(
+                                    "popup-close-icon"
+                                )));
                     // toggle button inactivity
                     contact_btn.classList[check ? "add" : "remove"]("btn-active");
                     // toggle popup container display

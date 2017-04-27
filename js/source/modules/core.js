@@ -52,7 +52,7 @@ app.module("core", function(modules, name) {
                         ).replace("%contact%", key);
                     }
                 }
-                contact_popup.children[0].insertAdjacentHTML(
+                contact_popup.children[1].insertAdjacentHTML(
                     "afterbegin",
                     contacts_html_string
                 );
@@ -66,7 +66,12 @@ app.module("core", function(modules, name) {
                 var target = e.target,
                     check =
                         [contact_btn, contact_popup].indexOf(target) !== -1 ||
-                        contact_popup.contains(target);
+                        (contact_popup.contains(target) &&
+                            // exclude the popup-close (container) & child (the icon)
+                            (!target.classList.contains("popup-close") &&
+                                !target.classList.contains(
+                                    "popup-close-icon"
+                                )));
                 // toggle button inactivity
                 contact_btn.classList[check ? "add" : "remove"]("btn-active");
                 // toggle popup container display

@@ -728,6 +728,27 @@ body {
     font-weight: bold;
 }
 
+.popup-close {
+    position: absolute;
+    font-size: 22px;
+    top: -10px;
+    right: -10px;
+    float: right;
+    cursor: pointer;
+    border-radius: 100px;
+    display: inline-flex;
+    padding: 5px;
+    color: #929394;
+}
+
+.popup-close:hover {
+    color: #222222;
+}
+
+.popup-close:active {
+    color: #000000;
+}
+
 .btn-default {
     padding: 8px 14px;
     border-radius: 4px;
@@ -750,6 +771,11 @@ body {
 .btn-default-active {
     pointer-events: none;
     color: rgb(45, 49, 56);
+}
+
+.btn-active {
+    color: #cbcbcb;
+    pointer-events: none;
 }
 
 .none {
