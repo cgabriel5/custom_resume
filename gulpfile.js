@@ -203,9 +203,11 @@ gulp.task("jslibs", function(done) {
         .src(
             [
                 // add any used js library paths here
-                // "js/libs/jquery.js"
-                // "js/libs/modernizr.js"
-            ]
+                // "jquery.js"
+                // "modernizr.js"
+                "fastclick.js"
+            ],
+            { cwd: "js/libs/" }
         )
         .pipe(
             plumber({
