@@ -12,7 +12,8 @@ var $ = require("gulp-load-plugins")({
     open = $.opn,
     del = $.del,
     bs = $.browserSync,
-    plumber = $.plumber;
+    plumber = $.plumber,
+    clean = $.clean;
 
 // create the browser-sync servers
 var bs1 = bs.create("localhost"),
@@ -268,11 +269,49 @@ gulp.task("jslibs", function(done) {
         .pipe(bs1.stream());
 });
 
+// copy css libraries folder
+gulp.task("csslibsfolder", ["clean-csslibs"], function(done) {
+    return gulp
+        .src(["css/libs/**"])
+        .pipe(
+            plumber({
+                errorHandler: function(error) {
+                    // [https://scotch.io/tutorials/prevent-errors-from-crashing-gulp-watch]
+                    // [https://cameronspear.com/blog/how-to-handle-gulp-watch-errors-with-plumber/]
+                    // [http://blog.ibangspacebar.com/handling-errors-with-gulp-watch-and-gulp-plumber/]
+                    notify("Error with `CSSLIBSFOLDER` task.", true);
+                    this.emit("end");
+                }
+            })
+        )
+        .pipe(gulp.dest("dist/css/libs/")) // dump in dist/ folder
+        .pipe(bs1.stream());
+});
+
+// copy js libraries folder
+gulp.task("jslibsfolder", ["clean-jslibs"], function(done) {
+    return gulp
+        .src(["js/libs/**"])
+        .pipe(
+            plumber({
+                errorHandler: function(error) {
+                    // [https://scotch.io/tutorials/prevent-errors-from-crashing-gulp-watch]
+                    // [https://cameronspear.com/blog/how-to-handle-gulp-watch-errors-with-plumber/]
+                    // [http://blog.ibangspacebar.com/handling-errors-with-gulp-watch-and-gulp-plumber/]
+                    notify("Error with `JSLIBSFOLDER` task.", true);
+                    this.emit("end");
+                }
+            })
+        )
+        .pipe(gulp.dest("dist/js/libs/")) // dump in dist/ folder
+        .pipe(bs1.stream());
+});
+
 // copy img/ to dist/img/
 gulp.task("img", function(done) {
     // deed to copy hidden files/folders? [https://github.com/klaascuvelier/gulp-copy/issues/5]
     return gulp
-        .src("img/**")
+        .src("img/**/*")
         .pipe(
             plumber({
                 errorHandler: function(error) {
@@ -332,14 +371,14 @@ gulp.task("watch", function(done) {
             return sequence("html");
         }
     );
-    gulp.watch(["libs/**.css", "source/*.css"], { cwd: "css/" }, function() {
-        return sequence("cssapp", "csslibs");
+    gulp.watch(["libs/**/*", "source/*.css"], { cwd: "css/" }, function() {
+        return sequence("cssapp", "csslibs", "csslibsfolder");
     });
     gulp.watch(
-        ["libs/**.js", "source/*.js", "source/modules/*.js"],
+        ["libs/**/*", "source/*.js", "source/modules/*.js"],
         { cwd: "js/" },
         function() {
-            return sequence("jsapp", "jslibs");
+            return sequence("jsapp", "jslibs", "jslibsfolder");
         }
     );
     gulp.watch(["img/**"], options, function() {
@@ -417,13 +456,28 @@ gulp.task("reset", function(done) {
         });
 });
 
+// remove the dist/ folder
+gulp.task("clean-dist", function() {
+    return gulp.src("dist/", { read: false, cwd: "./" }).pipe(clean());
+});
+// remove the css/libs/ folder
+gulp.task("clean-csslibs", function() {
+    return gulp.src("dist/css/libs/", { read: false, cwd: "./" }).pipe(clean());
+});
+// remove the js/libs/ folder
+gulp.task("clean-jslibs", function() {
+    return gulp.src("dist/js/libs/", { read: false, cwd: "./" }).pipe(clean());
+});
+
 // build the dist/ folder
-gulp.task("build", function(done) {
+gulp.task("build", ["clean-dist"], function(done) {
     return sequence(
         "cssapp",
         "csslibs",
+        "csslibsfolder",
         "jsapp",
         "jslibs",
+        "jslibsfolder",
         "img",
         "html",
         "readme",
