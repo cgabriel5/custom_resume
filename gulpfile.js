@@ -25,6 +25,7 @@ var bs1 = bs.create("localhost"),
 var browsers = ["google-chrome"]; // , "firefox"];
 
 // list of autoprefixer browsers to support
+// adapted from google's web starter kit
 var autoprefixer_browsers = [
     "ie >= 10",
     "ie_mob >= 10",
@@ -135,66 +136,66 @@ gulp.task("html", function(done) {
 
 // build app.css + autoprefix + minify
 gulp.task("cssapp", function(done) {
-    return (gulp
-            .src(["normalize.css", "base.css", "styles.css"], {
-                cwd: "css/source/"
+    return gulp
+        .src(["normalize.css", "base.css", "styles.css"], {
+            cwd: "css/source/"
+        })
+        .pipe(
+            plumber({
+                errorHandler: function(error) {
+                    // [https://scotch.io/tutorials/prevent-errors-from-crashing-gulp-watch]
+                    // [https://cameronspear.com/blog/how-to-handle-gulp-watch-errors-with-plumber/]
+                    // [http://blog.ibangspacebar.com/handling-errors-with-gulp-watch-and-gulp-plumber/]
+                    notify("Error with `CSS` task.", true);
+                    this.emit("end");
+                }
             })
-            .pipe(
-                plumber({
-                    errorHandler: function(error) {
-                        // [https://scotch.io/tutorials/prevent-errors-from-crashing-gulp-watch]
-                        // [https://cameronspear.com/blog/how-to-handle-gulp-watch-errors-with-plumber/]
-                        // [http://blog.ibangspacebar.com/handling-errors-with-gulp-watch-and-gulp-plumber/]
-                        notify("Error with `CSS` task.", true);
-                        this.emit("end");
-                    }
-                })
-            )
-            .pipe($.concat("app.css"))
-            .pipe(gulp.dest("css/")) // dump into development folder
-            .pipe(
-                $.autoprefixer({
-                    browsers: autoprefixer_browsers,
-                    cascade: false
-                })
-            )
-            // .pipe($.cleanCss()) // minify for production
-            .pipe(gulp.dest("dist/css/")) // dump in dist/ folder
-            .pipe(bs1.stream()) );
+        )
+        .pipe($.concat("app.css"))
+        .pipe(
+            $.autoprefixer({
+                browsers: autoprefixer_browsers,
+                cascade: false
+            })
+        )
+        .pipe(gulp.dest("css/")) // dump into development folder
+        .pipe($.cleanCss()) // minify for production
+        .pipe(gulp.dest("dist/css/")) // dump in dist/ folder
+        .pipe(bs1.stream());
 });
 
 // build libs.css + minify + beautify
 gulp.task("csslibs", function(done) {
-    return (gulp
-            .src(
-                [
-                    // add any used css library paths here
-                    "font-awesome-4.7.0/css/font-awesome.css"
-                ],
-                { cwd: "css/libs/" }
-            )
-            .pipe(
-                plumber({
-                    errorHandler: function(error) {
-                        // [https://scotch.io/tutorials/prevent-errors-from-crashing-gulp-watch]
-                        // [https://cameronspear.com/blog/how-to-handle-gulp-watch-errors-with-plumber/]
-                        // [http://blog.ibangspacebar.com/handling-errors-with-gulp-watch-and-gulp-plumber/]
-                        notify("Error with `CSSLIBS` task.", true);
-                        this.emit("end");
-                    }
-                })
-            )
-            .pipe($.concat("libs.css"))
-            .pipe(gulp.dest("css/")) // dump into development folder
-            .pipe(
-                $.autoprefixer({
-                    browsers: autoprefixer_browsers,
-                    cascade: false
-                })
-            )
-            // .pipe($.cleanCss()) // minify for production
-            .pipe(gulp.dest("dist/css/")) // dump in dist/ folder
-            .pipe(bs1.stream()) );
+    return gulp
+        .src(
+            [
+                // add any used css library paths here
+                "font-awesome-4.7.0/css/font-awesome.css"
+            ],
+            { cwd: "css/libs/" }
+        )
+        .pipe(
+            plumber({
+                errorHandler: function(error) {
+                    // [https://scotch.io/tutorials/prevent-errors-from-crashing-gulp-watch]
+                    // [https://cameronspear.com/blog/how-to-handle-gulp-watch-errors-with-plumber/]
+                    // [http://blog.ibangspacebar.com/handling-errors-with-gulp-watch-and-gulp-plumber/]
+                    notify("Error with `CSSLIBS` task.", true);
+                    this.emit("end");
+                }
+            })
+        )
+        .pipe($.concat("libs.css"))
+        .pipe(
+            $.autoprefixer({
+                browsers: autoprefixer_browsers,
+                cascade: false
+            })
+        )
+        .pipe(gulp.dest("css/")) // dump into development folder
+        .pipe($.cleanCss()) // minify for production
+        .pipe(gulp.dest("dist/css/")) // dump in dist/ folder
+        .pipe(bs1.stream());
 });
 
 // build app.js + minify + beautify
