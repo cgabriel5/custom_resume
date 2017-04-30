@@ -1,7 +1,6 @@
 app.module(
     "globals",
-    function(name) {
-        console.log("Loaded the " + name + " module!");
-    },
+    function(modules, name) {},
+    "complete",
     "module handles global app variables"
 );

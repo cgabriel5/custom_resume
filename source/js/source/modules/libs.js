@@ -1,7 +1,10 @@
 app.module(
     "libs",
-    function(name) {
-        console.log("Loaded the " + name + " module!");
+    function(modules, name) {
+        // init FastClickJS
+        if ("addEventListener" in document) {
+            FastClick.attach(document.body);
+        }
     },
-    "module handles third-party laibraries"
+    "interactive"
 );

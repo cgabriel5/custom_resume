@@ -1,6 +1,6 @@
 app.module(
-    "$$",
+    "core",
     function(modules, name) {},
     "complete",
-    "module handles getting relevant elements"
+    "module handles core app functions"
 );

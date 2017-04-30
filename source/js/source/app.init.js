@@ -42,7 +42,7 @@
             // add the module name to the app
             app[module_name] = app[module_name] || {};
             // call the module and run it
-            fn.call(app, module_name);
+            fn.call(app, app, module_name);
             // increase the counter
             counter[mode]++;
             // run the load function again

@@ -1,7 +1,6 @@
 app.module(
     "utils",
-    function(name) {
-        console.log("Loaded the " + name + " module!");
-    },
-    "module handles needed app utlities."
+    function(modules, name) {},
+    "complete",
+    "module handles app function utlities"
 );

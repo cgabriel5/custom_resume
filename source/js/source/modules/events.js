@@ -1,7 +1,6 @@
 app.module(
     "events",
-    function(name) {
-        console.log("Loaded the " + name + " module!");
-    },
+    function(modules, name) {},
+    "complete",
     "module handles app event handlers"
 );

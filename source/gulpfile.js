@@ -12,7 +12,8 @@ var $ = require("gulp-load-plugins")({
     open = $.opn,
     del = $.del,
     bs = $.browserSync,
-    plumber = $.plumber;
+    plumber = $.plumber,
+    clean = $.clean;
 
 // create the browser-sync servers
 var bs1 = bs.create("localhost"),
@@ -22,6 +23,24 @@ var bs1 = bs.create("localhost"),
 
 // browsers to open index.html/markdown preview in
 var browsers = ["google-chrome"]; // , "firefox"];
+
+// list of autoprefixer browsers to support
+// adapted from google's web starter kit
+var autoprefixer_browsers = [
+    "ie >= 10",
+    "ie_mob >= 10",
+    "ff >= 30",
+    "chrome >= 34",
+    "safari >= 7",
+    "opera >= 23",
+    "ios >= 7",
+    "android >= 4.4",
+    "bb >= 10",
+    "UCAndroid 11",
+    "OperaMini All",
+    "Samsung >= 4",
+    "ChromeAndroid >= 56"
+];
 
 /**
  * @description [Builds the localhost URL dynamically.]
@@ -116,7 +135,7 @@ gulp.task("html", function(done) {
 });
 
 // build app.css + autoprefix + minify
-gulp.task("css", function(done) {
+gulp.task("cssapp", function(done) {
     return gulp
         .src(["normalize.css", "base.css", "styles.css"], {
             cwd: "css/source/"
@@ -133,24 +152,47 @@ gulp.task("css", function(done) {
             })
         )
         .pipe($.concat("app.css"))
-        .pipe(gulp.dest("css/")) // dump into development folder
         .pipe(
             $.autoprefixer({
-                // from google web starter kit
-                browsers: [
-                    "ie >= 10",
-                    "ie_mob >= 10",
-                    "ff >= 30",
-                    "chrome >= 34",
-                    "safari >= 7",
-                    "opera >= 23",
-                    "ios >= 7",
-                    "android >= 4.4",
-                    "bb >= 10"
-                ],
+                browsers: autoprefixer_browsers,
                 cascade: false
             })
         )
+        .pipe(gulp.dest("css/")) // dump into development folder
+        .pipe($.cleanCss()) // minify for production
+        .pipe(gulp.dest("dist/css/")) // dump in dist/ folder
+        .pipe(bs1.stream());
+});
+
+// build libs.css + minify + beautify
+gulp.task("csslibs", function(done) {
+    return gulp
+        .src(
+            [
+                // add any used css library paths here
+                "font-awesome-4.7.0/css/font-awesome.css"
+            ],
+            { cwd: "css/libs/" }
+        )
+        .pipe(
+            plumber({
+                errorHandler: function(error) {
+                    // [https://scotch.io/tutorials/prevent-errors-from-crashing-gulp-watch]
+                    // [https://cameronspear.com/blog/how-to-handle-gulp-watch-errors-with-plumber/]
+                    // [http://blog.ibangspacebar.com/handling-errors-with-gulp-watch-and-gulp-plumber/]
+                    notify("Error with `CSSLIBS` task.", true);
+                    this.emit("end");
+                }
+            })
+        )
+        .pipe($.concat("libs.css"))
+        .pipe(
+            $.autoprefixer({
+                browsers: autoprefixer_browsers,
+                cascade: false
+            })
+        )
+        .pipe(gulp.dest("css/")) // dump into development folder
         .pipe($.cleanCss()) // minify for production
         .pipe(gulp.dest("dist/css/")) // dump in dist/ folder
         .pipe(bs1.stream());
@@ -170,6 +212,7 @@ gulp.task("jsapp", function(done) {
                 "modules/globals.js",
                 "modules/utils.js",
                 "modules/$$.js",
+                "modules/core.js",
                 "modules/events.js",
                 "modules/main.js",
                 // end: app modules
@@ -202,9 +245,11 @@ gulp.task("jslibs", function(done) {
         .src(
             [
                 // add any used js library paths here
-                // "js/libs/jquery.js"
-                // "js/libs/modernizr.js"
-            ]
+                // "jquery.js"
+                // "modernizr.js"
+                "fastclick.js"
+            ],
+            { cwd: "js/libs/" }
         )
         .pipe(
             plumber({
@@ -225,11 +270,49 @@ gulp.task("jslibs", function(done) {
         .pipe(bs1.stream());
 });
 
+// copy css libraries folder
+gulp.task("csslibsfolder", ["clean-csslibs"], function(done) {
+    return gulp
+        .src(["css/libs/**"])
+        .pipe(
+            plumber({
+                errorHandler: function(error) {
+                    // [https://scotch.io/tutorials/prevent-errors-from-crashing-gulp-watch]
+                    // [https://cameronspear.com/blog/how-to-handle-gulp-watch-errors-with-plumber/]
+                    // [http://blog.ibangspacebar.com/handling-errors-with-gulp-watch-and-gulp-plumber/]
+                    notify("Error with `CSSLIBSFOLDER` task.", true);
+                    this.emit("end");
+                }
+            })
+        )
+        .pipe(gulp.dest("dist/css/libs/")) // dump in dist/ folder
+        .pipe(bs1.stream());
+});
+
+// copy js libraries folder
+gulp.task("jslibsfolder", ["clean-jslibs"], function(done) {
+    return gulp
+        .src(["js/libs/**"])
+        .pipe(
+            plumber({
+                errorHandler: function(error) {
+                    // [https://scotch.io/tutorials/prevent-errors-from-crashing-gulp-watch]
+                    // [https://cameronspear.com/blog/how-to-handle-gulp-watch-errors-with-plumber/]
+                    // [http://blog.ibangspacebar.com/handling-errors-with-gulp-watch-and-gulp-plumber/]
+                    notify("Error with `JSLIBSFOLDER` task.", true);
+                    this.emit("end");
+                }
+            })
+        )
+        .pipe(gulp.dest("dist/js/libs/")) // dump in dist/ folder
+        .pipe(bs1.stream());
+});
+
 // copy img/ to dist/img/
 gulp.task("img", function(done) {
     // deed to copy hidden files/folders? [https://github.com/klaascuvelier/gulp-copy/issues/5]
     return gulp
-        .src("img/**")
+        .src("img/**/*")
         .pipe(
             plumber({
                 errorHandler: function(error) {
@@ -289,14 +372,14 @@ gulp.task("watch", function(done) {
             return sequence("html");
         }
     );
-    gulp.watch(["css/source/*.css"], options, function() {
-        return sequence("css");
+    gulp.watch(["libs/**/*", "source/*.css"], { cwd: "css/" }, function() {
+        return sequence("cssapp", "csslibs", "csslibsfolder");
     });
     gulp.watch(
-        ["libs/*.js", "source/*.js", "source/modules/*.js"],
+        ["libs/**/*", "source/*.js", "source/modules/*.js"],
         { cwd: "js/" },
         function() {
-            return sequence("jsapp", "jslibs");
+            return sequence("jsapp", "jslibs", "jslibsfolder");
         }
     );
     gulp.watch(["img/**"], options, function() {
@@ -374,12 +457,28 @@ gulp.task("reset", function(done) {
         });
 });
 
+// remove the dist/ folder
+gulp.task("clean-dist", function() {
+    return gulp.src("dist/", { read: false, cwd: "./" }).pipe(clean());
+});
+// remove the css/libs/ folder
+gulp.task("clean-csslibs", function() {
+    return gulp.src("dist/css/libs/", { read: false, cwd: "./" }).pipe(clean());
+});
+// remove the js/libs/ folder
+gulp.task("clean-jslibs", function() {
+    return gulp.src("dist/js/libs/", { read: false, cwd: "./" }).pipe(clean());
+});
+
 // build the dist/ folder
-gulp.task("build", function(done) {
+gulp.task("build", ["clean-dist"], function(done) {
     return sequence(
-        "css",
+        "cssapp",
+        "csslibs",
+        "csslibsfolder",
         "jsapp",
         "jslibs",
+        "jslibsfolder",
         "img",
         "html",
         "readme",
