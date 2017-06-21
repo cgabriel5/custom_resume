@@ -1,3 +1,3 @@
 // IIFE start
 (function(window) {
-    "use strict";
+        "use strict";

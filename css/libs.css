@@ -5,6 +5,7 @@
 
 /* FONT PATH
  * -------------------------- */
+
 @font-face {
   font-family: 'FontAwesome';
   src: url('libs/font-awesome-4.7.0/fonts/fontawesome-webfont.eot?v=4.7.0');
@@ -23,6 +24,7 @@
 }
 
 /* makes the font 33% larger relative to the icon container */
+
 .fa-lg {
   font-size: 1.33333333em;
   line-height: 0.75em;
@@ -51,12 +53,12 @@
 }
 
 .fa-ul {
+  list-style: none;
   padding-left: 0;
   margin-left: 2.14285714em;
-  list-style-type: none;
 }
 
-.fa-ul > li {
+.fa-ul>li {
   position: relative;
 }
 
@@ -95,6 +97,7 @@
 }
 
 /* Deprecated as of 4.4.0 */
+
 .pull-right {
   float: right;
 }
@@ -131,7 +134,6 @@
     -webkit-transform: rotate(359deg);
     transform: rotate(359deg);
   }
-
 }
 
 @keyframes fa-spin {
@@ -144,7 +146,6 @@
     -webkit-transform: rotate(359deg);
     transform: rotate(359deg);
   }
-
 }
 
 .fa-rotate-90 {
@@ -217,6 +218,7 @@
 
 /* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
    readers do not read off random characters that represent icons */
+
 .fa-glass:before {
   content: "\f000";
 }

@@ -1,9 +1,12 @@
 /* Resume inspiration (simple, clean, elegant) [https://dribbble.com/shots/1869995-Represent-Dashboard] */
+
 body {
     font: 14px/1.5 Lato;
 }
 
+
 /* [GENERAL STYLES : START] */
+
 .flex-center {
     display: flex;
     flex-flow: column nowrap;
@@ -49,9 +52,7 @@ body {
 }
 
 .tag {
-
     /* http://stackoverflow.com/questions/7300760/prevent-line-break-of-span-element */
-
     /* http://stackoverflow.com/questions/8753296/how-to-prevent-line-break-at-hyphens-on-all-browsers */
     white-space: nowrap;
     padding: 4px 8px;
@@ -78,16 +79,18 @@ body {
 }
 
 .text-link:hover {
-    border-bottom: 1px solid #0088CC;
-    color: #0088CC;
+    border-bottom: 1px solid #0088cc;
+    color: #0088cc;
 }
 
 .text-link:hover:after {
-
     /* [http://kaliko.com/blog/css-add-link-arrow-using-after-without/] [http://htmlarrows.com/] */
-    position: absolute;    /* Prevent underline of arrow */
-    padding-left: 2px;    /* Add a little space between text and arrow */
-    content: "\00bb";    /* Unicode hex for » */
+    position: absolute;
+    /* Prevent underline of arrow */
+    padding-left: 2px;
+    /* Add a little space between text and arrow */
+    content: "\00bb";
+    /* Unicode hex for » */
 }
 
 .text-size-16 {
@@ -104,7 +107,7 @@ body {
 }
 
 .text-blue {
-    color: #0088CC;
+    color: #0088cc;
 }
 
 .text-silver {
@@ -215,17 +218,17 @@ body {
 }
 
 .noselect {
-
     /* http://stackoverflow.com/questions/826782/css-rule-to-disable-text-selection-highlighting */
     user-select: none;
 }
 
+
 /* [GENERAL STYLES : END] */
+
 
 /* [CONTAINER STYLES : START] */
 
 .cont-responsive {
-
     /* this will change based on the media queries */
     width: 850px;
     padding: 20px 20px 75px 20px;
@@ -259,109 +262,93 @@ body {
     height: 64px;
 }
 
+
 /* [CONTAINER STYLES : END] */
 
+
 /* [MEDIA QUERIES STYLES : START] */
+
 @media screen and (max-width:915px) {
     .cont-responsive {
         width: 750px;
     }
-
     .entry-left {
         width: 250px;
     }
-
     .entry-right {
         width: 400px;
     }
-
 }
 
 @media screen and (max-width:825px) {
     .cont-responsive {
         width: auto;
     }
-
     .entry-left {
         width: 200px;
     }
-
     .entry-right {
         width: 425px;
     }
-
 }
 
 @media screen and (max-width:725px) {
     .cont-responsive {
         width: auto;
     }
-
     .entry-left {
         width: 200px;
     }
-
     .entry-right {
         width: 360px;
     }
-
 }
 
 @media screen and (max-width:625px) {
     .cont-responsive {
         width: auto;
     }
-
     .section-label {
         padding-bottom: 25px;
     }
-
     .entry-left {
         width: 180px;
     }
-
     .entry-right {
         width: 275px;
     }
-
 }
 
 @media screen and (max-width:525px) {
     .cont-responsive {
         width: auto;
     }
-
     .entry {
         flex-flow: column nowrap;
     }
-
     .entry-left {
         width: auto;
     }
-
     .entry-right {
         width: auto;
         padding-top: 5px;
     }
-
     .skill-tag {
         margin-top: 5px;
     }
-
 }
 
 @media screen and (max-width:425px) {
     .text-name {
         font-size: 26px;
     }
-
 }
 
 @media screen and (max-width:325px) {
     .text-name {
         font-size: 22px;
     }
-
 }
+
 
 /* [MEDIA QUERIES STYLES : END] */

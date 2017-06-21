@@ -1,2 +1,0 @@
-// IIFE end
-})(window);

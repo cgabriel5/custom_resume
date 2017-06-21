@@ -1,7 +1,6 @@
 // IIFE start
 (function(window) {
     "use strict";
-
     (function() {
         // add to global scope for ease of use
         // use global app var or create it if not present
@@ -14,7 +13,6 @@
                 complete: [],
                 interactive: []
             };
-
         // add a module to load
         app.module = function(module_name, fn, mode) {
             // determine what array the module needs to be added to
@@ -22,7 +20,6 @@
             // add the module to the queue
             queue[type].push([module_name, fn]);
         };
-
         // app module invoker
         var invoke = function(mode) {
             // get the queued array
@@ -33,7 +30,6 @@
             // get the first module
             load(modules, counter[mode], mode);
         };
-
         var load = function(modules, count, mode) {
             // get the current module + its information
             var module = modules[count];
@@ -54,7 +50,6 @@
                 load(modules, counter[mode], mode);
             })();
         };
-
         // cleanup the app variable
         var cleanup = function() {
             // remove unneeded properties once
@@ -62,7 +57,6 @@
             delete app.module;
             delete app.invoke;
         };
-
         // https://developer.mozilla.org/en-US/docs/Web/Events/readystatechange
         // the readystatechange event is fired when the readyState attribute of a
         // document has changed
@@ -77,39 +71,29 @@
             // **Note: complete    === window.addEventListener("load", function() {...
             // [DOMContentLoaded](https://developer.mozilla.org/en-US/docs/Web/Events/DOMContentLoaded)
             // [load](https://developer.mozilla.org/en-US/docs/Web/Events/load)
-
             // document loaded and parsed. however, still loading subresources
             // user is able to interact with page.
             if (document.readyState === "interactive") {
                 // invoke the modules set to mode interactive
                 invoke("interactive");
             }
-
             // all resources have loaded (document + subresources)
             if (document.readyState === "complete") {
                 // invoke the modules set to mode complete
                 invoke("complete");
-
                 // cleanup app var once everything is loaded
                 cleanup();
             }
-
             // good explanation with images:
             // https://varvy.com/performance/document-ready-state.html
         };
     })();
-
-    app.module(
-        "libs",
-        function(modules, name) {
-            // init FastClickJS
-            if ("addEventListener" in document) {
-                FastClick.attach(document.body);
-            }
-        },
-        "interactive"
-    );
-
+    app.module("libs", function(modules, name) {
+        // init FastClickJS
+        if ("addEventListener" in document) {
+            FastClick.attach(document.body);
+        }
+    }, "interactive");
     app.module("globals", function(modules, name) {
         /**
          * @description [Object containing the data used to fill out the resume block sections.]
@@ -121,10 +105,7 @@
                 role: "Front-End Web Developer",
                 contacts: {
                     github: ["cgabriel5", "https://github.com/cgabriel5/"],
-                    linkedin: [
-                        "cgabriel5",
-                        "https://www.linkedin.com/in/cgabriel5/"
-                    ],
+                    linkedin: ["cgabriel5", "https://www.linkedin.com/in/cgabriel5/"],
                     location: ["Modesto, CA", null]
                 },
                 welcomeMessage: "Hello there! My name is Carlos and I am a web enthusiast. Although graduating from college with a biology degree, I had a change of heart and decided to become a web developer. Yes, I love the web that much! Having an eye for detail, I naturally found Front-End web development quite fitting. What can I say, I like it when a website looks good.",
@@ -144,18 +125,16 @@
                     url: "http://www.ucmerced.edu/"
                 }],
                 onlineCourses: [{
-                        title: "Front-End Web Developer Nanodegree",
-                        school: "Udacity",
-                        date: "2017",
-                        url: "https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001"
-                    },
-                    {
-                        title: "Intro to Programming Nanodegree",
-                        school: "Udacity",
-                        date: "2016",
-                        url: "https://www.udacity.com/course/intro-to-programming-nanodegree--nd000"
-                    }
-                ]
+                    title: "Front-End Web Developer Nanodegree",
+                    school: "Udacity",
+                    date: "2017",
+                    url: "https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001"
+                }, {
+                    title: "Intro to Programming Nanodegree",
+                    school: "Udacity",
+                    date: "2016",
+                    url: "https://www.udacity.com/course/intro-to-programming-nanodegree--nd000"
+                }]
             },
             work: {
                 jobs: [
@@ -182,57 +161,48 @@
                 // than add the any images to the resume. I feel this keeps things...
                 // clear and separate.
                 projects: [{
-                        title: "InteractionJS (events)",
-                        dates: "2017-Present",
-                        description: "Small library for event handling.",
-                        url: "https://github.com/cgabriel5/interactionjs"
-                    },
-                    {
-                        title: "XHR-Wrapper (httpjs)",
-                        dates: "2017-Present",
-                        description: "A lightweight JavaScript XHR wrapper.",
-                        url: "https://github.com/cgabriel5/httpjs"
-                    },
-                    {
-                        title: "MonitorJS",
-                        dates: "2017-Present",
-                        description: "Small library that monitors an object.",
-                        url: "https://github.com/cgabriel5/monitorjs"
-                    },
-                    {
-                        title: "CSS-Syntax-Highlighter",
-                        dates: "2016-Present",
-                        description: "A CSS syntax highlighter.",
-                        url: "https://github.com/cgabriel5/css-syntax-highlighter"
-                    },
-                    {
-                        title: "CSS-Dupe-Finder",
-                        dates: "2016-Present",
-                        description: "Finds duplicate declarations within CSS code blocks.",
-                        url: "https://github.com/cgabriel5/css-dupe-finder"
-                    },
-                    {
-                        title: "Password-Generator",
-                        dates: "2015-Present",
-                        description: "A simple client-side password generator made in JavaScript.",
-                        url: "https://github.com/cgabriel5/password-generator"
-                    },
-                    {
-                        title: "FunnelJS",
-                        dates: "2015-Present",
-                        description: "Simple, standalone, lightweight JavaScript selector engine.",
-                        url: "https://github.com/cgabriel5/funneljs"
-                    },
-                    {
-                        title: "URL-Parser",
-                        dates: "2015-Present",
-                        description: "A JavaScript URL parser. Parses properly formatted URLs.",
-                        url: "https://github.com/cgabriel5/url-parser"
-                    }
-                ]
+                    title: "InteractionJS (events)",
+                    dates: "2017-Present",
+                    description: "Small library for event handling.",
+                    url: "https://github.com/cgabriel5/interactionjs"
+                }, {
+                    title: "XHR-Wrapper (httpjs)",
+                    dates: "2017-Present",
+                    description: "A lightweight JavaScript XHR wrapper.",
+                    url: "https://github.com/cgabriel5/httpjs"
+                }, {
+                    title: "MonitorJS",
+                    dates: "2017-Present",
+                    description: "Small library that monitors an object.",
+                    url: "https://github.com/cgabriel5/monitorjs"
+                }, {
+                    title: "CSS-Syntax-Highlighter",
+                    dates: "2016-Present",
+                    description: "A CSS syntax highlighter.",
+                    url: "https://github.com/cgabriel5/css-syntax-highlighter"
+                }, {
+                    title: "CSS-Dupe-Finder",
+                    dates: "2016-Present",
+                    description: "Finds duplicate declarations within CSS code blocks.",
+                    url: "https://github.com/cgabriel5/css-dupe-finder"
+                }, {
+                    title: "Password-Generator",
+                    dates: "2015-Present",
+                    description: "A simple client-side password generator made in JavaScript.",
+                    url: "https://github.com/cgabriel5/password-generator"
+                }, {
+                    title: "FunnelJS",
+                    dates: "2015-Present",
+                    description: "Simple, standalone, lightweight JavaScript selector engine.",
+                    url: "https://github.com/cgabriel5/funneljs"
+                }, {
+                    title: "URL-Parser",
+                    dates: "2015-Present",
+                    description: "A JavaScript URL parser. Parses properly formatted URLs.",
+                    url: "https://github.com/cgabriel5/url-parser"
+                }]
             }
         };
-
         /**
          * @description [HTML templates used to build the resume.]
          * @type {Object}
@@ -278,12 +248,10 @@
             html_education_school_name_online: '<div class="text-600">%data% <span class="class-online noselect">online</span></div>',
             html_education_generic_bold: '<div class="text-600"><a href="#" class="text-link">%data%</a></div>'
         };
-
         // export to access in other modules
         this[name].templates = templates;
         this[name].data = data;
     });
-
     app.module("utils", function(modules, name) {
         /**
          * @description [Formats provided template.]
@@ -294,11 +262,9 @@
          *                            another replace to replace the 'href="#"' with the provided url.]
          */
         function format(template, data, url) {
-            return template
-                .replace("%data%", data)
+            return template.replace("%data%", data)
                 .replace(!url ? null : 'href="#"', !url ? null : "href=" + url + ' target="_blank"');
         }
-
         // /**
         //  * @description [Detects whether the device is running iOS.]
         //  * @return {Boolean}    [True if an iOS device. Otherwise, false.]
@@ -311,7 +277,6 @@
         //         !window.MSStream
         //     );
         // }
-
         // /**
         //  * @description [Adds the CSS `fix-ios-click` if the user's device is an iOS device.]
         //  */
@@ -322,10 +287,8 @@
         //     // [http://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html]
         //     // [http://stackoverflow.com/questions/14795944/jquery-click-events-not-working-in-ios]
         //     // [http://www.quirksmode.org/blog/archives/2010/09/click_event_del.html]
-
         //     // To fix this behavior the `fix-ios-click` CSS class is added to the portfolio_wrapper
         //     // if the device is an ip***.
-
         //     // add the needed CSS class if iOS
         //     if (is_ios()) {
         //         /**
@@ -349,12 +312,10 @@
         //         document.body.classList.add("fix-ios-click");
         //     }
         // }
-
         // export to access in other modules
         this[name].format = format;
         // this[name].prepare_ios = prepare_ios;
     });
-
     app.module("$$", function(modules, name) {
         // cache vars
         var d = document,
@@ -369,13 +330,11 @@
         this[name]["workexp_section"] = $("section-workexp");
         this[name]["projects_section"] = $("section-projects");
     });
-
     app.module("core", function(modules, name) {
         // import whats needed
         var templates = modules.globals.templates,
             format = modules.utils.format,
             $$ = modules.$$;
-
         /**
          * @description [Functions that help build the resume sections and injects them into the DOM.]
          * @type {Object}
@@ -388,111 +347,63 @@
             bio: function() {
                 // cache self reference
                 var _ = this;
-
                 //--------------------------------------------------CONTACTS
-
                 // add contact button + its popup container
-                $$.section_contacts.insertAdjacentHTML(
-                    "afterbegin",
-                    templates.html_contact_button +
-                    templates.html_contact_popup_wrapper
-                );
-
+                $$.section_contacts.insertAdjacentHTML("afterbegin", templates.html_contact_button + templates.html_contact_popup_wrapper);
                 // cache needed elements for ease of use, contact button + contact popup container
                 var contact_btn = document.getElementById("btn-contact");
                 var contact_popup = contact_btn.nextElementSibling;
-
                 // set needed vars
                 var contacts = _.contacts,
                     contact_keys = Object.keys(contacts),
                     contact_count = contact_keys.length,
                     contacts_html_string = "";
-
                 // embed contacts if they are provided
                 if (contact_count) {
                     for (var i = 0; i < contact_count; i++) {
                         var key = contact_keys[i];
                         // look only for properties on object itself
                         if (contacts.hasOwnProperty(key)) {
-                            contacts_html_string += format(
-                                templates[
-                                    "html_contact_item_" +
-                                    (!contacts[key][1] ? "generic" : "url")
-                                ],
-                                contacts[key][0],
-                                contacts[key][1]
-                            ).replace("%contact%", key);
+                            contacts_html_string += format(templates["html_contact_item_" + (!contacts[key][1] ? "generic" : "url")], contacts[key][0], contacts[key][1])
+                                .replace("%contact%", key);
                         }
                     }
-                    contact_popup.children[1].insertAdjacentHTML(
-                        "afterbegin",
-                        contacts_html_string
-                    );
+                    contact_popup.children[1].insertAdjacentHTML("afterbegin", contacts_html_string);
                 }
-
                 //--------------------------------------------------CONTACTS POPUP CLICK EVENT
-
                 // listen for click events on the DOM
                 document.addEventListener("click", function(e) {
                     // cache the target + "hover" check
                     var target = e.target,
-                        check = [contact_btn, contact_popup].indexOf(target) !== -1 ||
-                        (contact_popup.contains(target) &&
+                        check = [contact_btn, contact_popup].indexOf(target) !== -1 || (contact_popup.contains(target) &&
                             // exclude the popup-close (container) & child (the icon)
-                            (!target.classList.contains("popup-close") &&
-                                !target.classList.contains(
-                                    "popup-close-icon"
-                                )));
+                            (!target.classList.contains("popup-close") && !target.classList.contains("popup-close-icon")));
                     // toggle button inactivity
                     contact_btn.classList[check ? "add" : "remove"]("btn-active");
                     // toggle popup container display
                     contact_popup.classList[check ? "remove" : "add"]("none");
                 });
-
                 //--------------------------------------------------BIO
-
                 // embed biopic, name , role, message
                 var section_one = $$.section_one;
                 // add the bio wrappers
-                section_one.insertAdjacentHTML(
-                    "afterbegin",
-                    templates.html_bio_wrappers
-                );
+                section_one.insertAdjacentHTML("afterbegin", templates.html_bio_wrappers);
                 // to each wrapper add its respective data
-                section_one.children[0].insertAdjacentHTML(
-                    "afterbegin",
-                    format(templates.html_biopic, _.biopic)
-                );
-                section_one.children[1].insertAdjacentHTML(
-                    "afterbegin",
-                    format(templates.html_name, _.name)
-                );
-                section_one.children[2].insertAdjacentHTML(
-                    "afterbegin",
-                    format(templates.html_role, _.role)
-                );
-                section_one.children[3].insertAdjacentHTML(
-                    "afterbegin",
-                    format(templates.html_message, _.welcomeMessage)
-                );
-
+                section_one.children[0].insertAdjacentHTML("afterbegin", format(templates.html_biopic, _.biopic));
+                section_one.children[1].insertAdjacentHTML("afterbegin", format(templates.html_name, _.name));
+                section_one.children[2].insertAdjacentHTML("afterbegin", format(templates.html_role, _.role));
+                section_one.children[3].insertAdjacentHTML("afterbegin", format(templates.html_message, _.welcomeMessage));
                 //--------------------------------------------------SKILLS
-
                 // set needed vars
                 var skills = _.skills,
                     frontend_skills = skills.frontend,
                     backend_skills = skills.backend;
-
                 // embed skills if they are provided
                 if (frontend_skills.length || backend_skills.length) {
                     // cache the skills section
                     var skills_section = $$.skills_section;
                     // add the label to the page +
-                    skills_section.insertAdjacentHTML(
-                        "afterbegin",
-                        templates.html_skills_start
-                    );
-
+                    skills_section.insertAdjacentHTML("afterbegin", templates.html_skills_start);
                     var add_skills = function(skills_list, label_html) {
                         /**
                             * @description Adds the provided skills onto the page.
@@ -506,39 +417,21 @@
                         // add skills if provided
                         if (skills_list.length) {
                             skills_list.forEach(function(skill) {
-                                skills_html_string += format(
-                                    templates.html_skill,
-                                    skill
-                                );
+                                skills_html_string += format(templates.html_skill, skill);
                             });
                             // add the entry to the page
-                            skills_section.insertAdjacentHTML(
-                                "beforeend",
-                                templates.html_entry
-                            );
+                            skills_section.insertAdjacentHTML("beforeend", templates.html_entry);
                             // get the last inserted entry
-                            var entries = skills_section.getElementsByClassName(
-                                "entry"
-                            );
+                            var entries = skills_section.getElementsByClassName("entry");
                             var last_entry = entries[entries.length - 1];
                             // left side
-                            last_entry.children[0].insertAdjacentHTML(
-                                "afterbegin",
-                                label_html
-                            );
+                            last_entry.children[0].insertAdjacentHTML("afterbegin", label_html);
                             // right side
-                            last_entry.children[1].insertAdjacentHTML(
-                                "afterbegin",
-                                skills_html_string
-                            );
+                            last_entry.children[1].insertAdjacentHTML("afterbegin", skills_html_string);
                         }
                     };
-
                     // add skills
-                    add_skills(
-                        frontend_skills,
-                        templates.html_skills_label_frontend
-                    );
+                    add_skills(frontend_skills, templates.html_skills_label_frontend);
                     add_skills(backend_skills, templates.html_skills_label_backend);
                 }
             },
@@ -549,57 +442,26 @@
             education: function() {
                 // cache the education section
                 var education_section = $$.education_section;
-
                 // add the label to the page
-                education_section.insertAdjacentHTML(
-                    "afterbegin",
-                    templates.html_education_start
-                );
-
+                education_section.insertAdjacentHTML("afterbegin", templates.html_education_start);
                 //--------------------------------------------------ONLINE-SCHOOL
-
                 // loop through online school objects and add them to the page
                 this.onlineCourses.forEach(function(online_course) {
                     // add the entry to the page
-                    education_section.insertAdjacentHTML(
-                        "beforeend",
-                        templates.html_entry
-                    );
+                    education_section.insertAdjacentHTML("beforeend", templates.html_entry);
                     // get the last inserted entry
                     var entries = education_section.getElementsByClassName("entry");
                     var last_entry = entries[entries.length - 1];
                     // left side
-                    last_entry.children[0].insertAdjacentHTML(
-                        "afterbegin",
-                        format(
-                            templates.html_education_school_name_online,
-                            online_course.school
-                        ) +
-                        format(
-                            templates.html_education_generic,
-                            online_course.date
-                        )
-                    );
+                    last_entry.children[0].insertAdjacentHTML("afterbegin", format(templates.html_education_school_name_online, online_course.school) + format(templates.html_education_generic, online_course.date));
                     // right side
-                    last_entry.children[1].insertAdjacentHTML(
-                        "afterbegin",
-                        format(
-                            templates.html_education_generic_bold,
-                            online_course.title,
-                            online_course.url
-                        )
-                    );
+                    last_entry.children[1].insertAdjacentHTML("afterbegin", format(templates.html_education_generic_bold, online_course.title, online_course.url));
                 });
-
                 //--------------------------------------------------TRADITIONAL-SCHOOL
-
                 // loop through school objects and add them to the page
                 this.schools.forEach(function(school) {
                     // add the entry to the page
-                    education_section.insertAdjacentHTML(
-                        "beforeend",
-                        templates.html_entry
-                    );
+                    education_section.insertAdjacentHTML("beforeend", templates.html_entry);
                     // get the last inserted entry
                     var entries = education_section.getElementsByClassName("entry");
                     var last_entry = entries[entries.length - 1];
@@ -608,31 +470,12 @@
                         majors_html_string = "";
                     // build majors HTML
                     majors.forEach(function(major) {
-                        majors_html_string += format(
-                            templates.html_education_major,
-                            major
-                        );
+                        majors_html_string += format(templates.html_education_major, major);
                     });
                     // left side
-                    last_entry.children[0].insertAdjacentHTML(
-                        "afterbegin",
-                        format(
-                            templates.html_education_school_name,
-                            school.name,
-                            school.url
-                        ) +
-                        format(
-                            templates.html_education_location,
-                            school.location
-                        ) +
-                        format(templates.html_education_generic, school.dates)
-                    );
+                    last_entry.children[0].insertAdjacentHTML("afterbegin", format(templates.html_education_school_name, school.name, school.url) + format(templates.html_education_location, school.location) + format(templates.html_education_generic, school.dates));
                     // right side
-                    last_entry.children[1].insertAdjacentHTML(
-                        "afterbegin",
-                        format(templates.html_education_degree, school.degree) +
-                        majors_html_string
-                    );
+                    last_entry.children[1].insertAdjacentHTML("afterbegin", format(templates.html_education_degree, school.degree) + majors_html_string);
                 });
             },
             /**
@@ -641,42 +484,23 @@
              */
             work: function() {
                 //--------------------------------------------------JOBS
-
                 // cache the work experience section
                 var workexp_section = $$.workexp_section;
-
                 // if no jobs return and hide the section
                 if (!this.jobs.length) workexp_section.classList.add("none");
-
                 // add the label to the page
-                workexp_section.insertAdjacentHTML(
-                    "afterbegin",
-                    templates.html_workexp_start
-                );
-
+                workexp_section.insertAdjacentHTML("afterbegin", templates.html_workexp_start);
                 // loop through jobs objects and add them to the page
                 this.jobs.forEach(function(job) {
                     // add the entry to the page
-                    workexp_section.insertAdjacentHTML(
-                        "beforeend",
-                        templates.html_entry
-                    );
+                    workexp_section.insertAdjacentHTML("beforeend", templates.html_entry);
                     // get the last inserted entry
                     var entries = workexp_section.getElementsByClassName("entry");
                     var last_entry = entries[entries.length - 1];
                     // left side
-                    last_entry.children[0].insertAdjacentHTML(
-                        "afterbegin",
-                        format(templates.html_workexp_employer, job.employer) +
-                        format(templates.html_workexp_title, job.title) +
-                        format(templates.html_workexp_location, job.location) +
-                        format(templates.html_workexp_generic, job.dates)
-                    );
+                    last_entry.children[0].insertAdjacentHTML("afterbegin", format(templates.html_workexp_employer, job.employer) + format(templates.html_workexp_title, job.title) + format(templates.html_workexp_location, job.location) + format(templates.html_workexp_generic, job.dates));
                     // right side
-                    last_entry.children[1].insertAdjacentHTML(
-                        "afterbegin",
-                        format(templates.html_workexp_generic, job.description)
-                    );
+                    last_entry.children[1].insertAdjacentHTML("afterbegin", format(templates.html_workexp_generic, job.description));
                 });
             },
             /**
@@ -685,48 +509,28 @@
              */
             projects: function() {
                 //--------------------------------------------------PROJECTS
-
                 // cache the workExperience section
                 var projects_section = $$.projects_section;
-
                 // add the label to the page
-                projects_section.insertAdjacentHTML(
-                    "afterbegin",
-                    templates.html_projects_start
-                );
-
+                projects_section.insertAdjacentHTML("afterbegin", templates.html_projects_start);
                 // loop through projects objects and add them to the page
                 this.projects.forEach(function(project) {
                     // add the entry to the page
-                    projects_section.insertAdjacentHTML(
-                        "beforeend",
-                        templates.html_entry
-                    );
+                    projects_section.insertAdjacentHTML("beforeend", templates.html_entry);
                     // get the last inserted entry
                     var entries = projects_section.getElementsByClassName("entry");
                     var last_entry = entries[entries.length - 1];
                     // left side
-                    last_entry.children[0].insertAdjacentHTML(
-                        "afterbegin",
-                        format(templates.html_project_name, project.title) +
-                        format(templates.html_project_generic, project.dates) +
-                        format(templates.html_project_link, "", project.url)
-                    );
+                    last_entry.children[0].insertAdjacentHTML("afterbegin", format(templates.html_project_name, project.title) + format(templates.html_project_generic, project.dates) + format(templates.html_project_link, "", project.url));
                     // right side
-                    last_entry.children[1].insertAdjacentHTML(
-                        "afterbegin",
-                        format(templates.html_project_generic, project.description)
-                    );
+                    last_entry.children[1].insertAdjacentHTML("afterbegin", format(templates.html_project_generic, project.description));
                 });
             }
         };
-
         // export to access in other modules
         this[name].builders = builders;
     });
-
     app.module("events", function(modules, name) {});
-
     app.module("main", function(modules, name) {
         // grab modules
         var globals = modules.globals,
@@ -736,15 +540,12 @@
         // var prepare_ios = utils.prepare_ios,
         var builders = core.builders,
             data = globals.data;
-
         // invoke builders
         ["bio", "work", "projects", "education"].forEach(function(section) {
             builders[section].call(data[section]);
         });
-
         // prepare for iOS devices
         // prepare_ios();
     });
-
     // IIFE end
 })(window);
