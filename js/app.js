@@ -110,8 +110,8 @@
                 },
                 welcomeMessage: "Hello there! My name is Carlos and I am a web enthusiast. Although graduating from college with a biology degree, I had a change of heart and decided to become a web developer. Yes, I love the web that much! Having an eye for detail, I naturally found Front-End web development quite fitting. What can I say, I like it when a website looks good.",
                 skills: {
-                    frontend: ["HTML", "CSS", "JavaScript, jQuery"],
-                    backend: ["PHP", "MySQL", "NodeJS (Socket.IO)"]
+                    frontend: ["HTML", "CSS", "SCSS", "JavaScript"],
+                    backend: ["PHP", "MySQL", "NodeJS"]
                 },
                 biopic: "img/default.png" // [https://www.iconfinder.com/icons/1564522/camera_capture_photo_icon#size=128]
             },
@@ -161,6 +161,31 @@
                 // than add the any images to the resume. I feel this keeps things...
                 // clear and separate.
                 projects: [{
+                    title: "devdocs",
+                    dates: "2018-Present",
+                    description: "A static website documentation generator.",
+                    url: "https://github.com/cgabriel5/devdocs"
+                }, {
+                    title: "wapplr-webpack-gulp",
+                    dates: "2018-Present",
+                    description: "A web development boilerplate and tooling solution that uses webpack and Gulp.",
+                    url: "https://github.com/cgabriel5/wapplr-webpack-gulp"
+                }, {
+                    title: "wapplr-webpack-simple",
+                    dates: "2018-Present",
+                    description: "A web development webpack starter.",
+                    url: "https://github.com/cgabriel5/wapplr-webpack-simple"
+                }, {
+                    title: "wapplr",
+                    dates: "2017-Present",
+                    description: "A web development boilerplate and tooling solution.",
+                    url: "https://github.com/cgabriel5/wapplr"
+                }, {
+                    title: "random-string",
+                    dates: "2017-Present",
+                    description: "JavaScript library that creates random strings.",
+                    url: "https://github.com/cgabriel5/random-string"
+                }, {
                     title: "InteractionJS (events)",
                     dates: "2017-Present",
                     description: "Small library for event handling.",
