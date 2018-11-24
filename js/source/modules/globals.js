@@ -15,7 +15,7 @@ app.module("globals", function(modules, name) {
                 ],
                 location: ["Modesto, CA", null]
             },
-            welcomeMessage: "Hello there! My name is Carlos and I am a web enthusiast. Although graduating from college with a biology degree, I had a change of heart and decided to become a web developer. Yes, I love the web that much! Having an eye for detail, I naturally found Front-End web development quite fitting. What can I say, I like it when a website looks good.",
+            welcomeMessage: "Hello! My name is Carlos and I'm a front-end web developer. Though graduating college with a Biology degree I had a change of heart and decided to pursue web development. Yes, I love the web that much!",
             skills: {
                 frontend: ["HTML", "CSS", "SCSS", "JavaScript"],
                 backend: ["PHP", "MySQL", "NodeJS"]
