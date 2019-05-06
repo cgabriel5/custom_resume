@@ -18,7 +18,8 @@ app.module("globals", function(modules, name) {
             welcomeMessage: "Hello! My name is Carlos and I'm a front-end web developer. Though graduating college with a Biology degree I had a change of heart and decided to pursue web development. Yes, I love the web that much!",
             skills: {
                 frontend: ["HTML", "CSS", "SCSS", "JavaScript"],
-                backend: ["PHP", "MySQL", "NodeJS"]
+                backend: ["PHP", "MySQL", "NodeJS"],
+                scripting: ["Bash", "Perl"]
             },
             biopic: "img/default.png" // [https://www.iconfinder.com/icons/1564522/camera_capture_photo_icon#size=128]
         },
@@ -73,6 +74,18 @@ app.module("globals", function(modules, name) {
             // than add the any images to the resume. I feel this keeps things...
             // clear and separate.
             projects: [
+                {
+                    title: "nodecliac",
+                    dates: "2019",
+                    description: "A simple definition based bash tab auto-completion tool.",
+                    url: "https://github.com/cgabriel5/nodecliac"
+                },
+                {
+                    title: "clone-repo",
+                    dates: "2019",
+                    description: "Clones a public GitHub, GitLab, or BitBucket repo from the CLI using a simple, unified API.",
+                    url: "https://github.com/cgabriel5/clone-repo"
+                },
                 {
                     title: "devdocs",
                     dates: "2018-Present",
@@ -184,6 +197,7 @@ app.module("globals", function(modules, name) {
         html_skill: '<span class="tag">%data%</span>',
         html_skills_label_frontend: '<div class="text-600">Front End</div>',
         html_skills_label_backend: '<div class="text-600">Back End</div>',
+        html_skills_label_scripting: '<div class="text-600">Scripting</div>',
         // projects HTML
         html_projects_start: '<div class="section-label"><span class="text-600 text-silver">PROJECTS</span></div>',
         html_project_name: '<div class="text-600">%data%</div>',

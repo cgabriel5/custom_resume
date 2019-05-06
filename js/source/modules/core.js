@@ -110,10 +110,11 @@ app.module("core", function(modules, name) {
             // set needed vars
             var skills = _.skills,
                 frontend_skills = skills.frontend,
-                backend_skills = skills.backend;
+                backend_skills = skills.backend,
+                scripting_skills = skills.scripting;
 
             // embed skills if they are provided
-            if (frontend_skills.length || backend_skills.length) {
+            if (frontend_skills.length || backend_skills.length || scripting_skills.length) {
                 // cache the skills section
                 var skills_section = $$.skills_section;
                 // add the label to the page +
@@ -169,6 +170,7 @@ app.module("core", function(modules, name) {
                     templates.html_skills_label_frontend
                 );
                 add_skills(backend_skills, templates.html_skills_label_backend);
+                add_skills(scripting_skills, templates.html_skills_label_scripting);
             }
         },
         /**
