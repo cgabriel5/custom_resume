@@ -111,7 +111,8 @@
                 welcomeMessage: "Hello! My name is Carlos and I'm a front-end web developer. Though graduating college with a Biology degree I had a change of heart and decided to pursue web development. Yes, I love the web that much!",
                 skills: {
                     frontend: ["HTML", "CSS", "SCSS", "JavaScript"],
-                    backend: ["PHP", "MySQL", "NodeJS"]
+                    backend: ["PHP", "MySQL", "NodeJS"],
+                    scripting: ["Bash", "Perl"]
                 },
                 biopic: "img/default.png" // [https://www.iconfinder.com/icons/1564522/camera_capture_photo_icon#size=128]
             },
@@ -161,6 +162,16 @@
                 // than add the any images to the resume. I feel this keeps things...
                 // clear and separate.
                 projects: [{
+                    title: "nodecliac",
+                    dates: "2019",
+                    description: "A simple definition based bash tab auto-completion tool.",
+                    url: "https://github.com/cgabriel5/nodecliac"
+                }, {
+                    title: "clone-repo",
+                    dates: "2019",
+                    description: "Clones a public GitHub, GitLab, or BitBucket repo from the CLI using a simple, unified API.",
+                    url: "https://github.com/cgabriel5/clone-repo"
+                }, {
                     title: "devdocs",
                     dates: "2018-Present",
                     description: "A static website documentation generator.",
@@ -257,6 +268,7 @@
             html_skill: '<span class="tag">%data%</span>',
             html_skills_label_frontend: '<div class="text-600">Front End</div>',
             html_skills_label_backend: '<div class="text-600">Back End</div>',
+            html_skills_label_scripting: '<div class="text-600">Scripting</div>',
             // projects HTML
             html_projects_start: '<div class="section-label"><span class="text-600 text-silver">PROJECTS</span></div>',
             html_project_name: '<div class="text-600">%data%</div>',
@@ -422,9 +434,10 @@
                 // set needed vars
                 var skills = _.skills,
                     frontend_skills = skills.frontend,
-                    backend_skills = skills.backend;
+                    backend_skills = skills.backend,
+                    scripting_skills = skills.scripting;
                 // embed skills if they are provided
-                if (frontend_skills.length || backend_skills.length) {
+                if (frontend_skills.length || backend_skills.length || scripting_skills.length) {
                     // cache the skills section
                     var skills_section = $$.skills_section;
                     // add the label to the page +
@@ -458,6 +471,7 @@
                     // add skills
                     add_skills(frontend_skills, templates.html_skills_label_frontend);
                     add_skills(backend_skills, templates.html_skills_label_backend);
+                    add_skills(scripting_skills, templates.html_skills_label_scripting);
                 }
             },
             /**
